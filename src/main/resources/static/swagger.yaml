@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "This is a sample project of a RESTful API for star wars fans. The main use case for the API is store and manage info about planets in Star Wars Universe. The data is gathered using SWAPI - The Star Wars API and enhanced with insertion of new planets in it's own database."
+  version: "1.0.0"
+  title: "Monnos' Star Wars API"
+  contact:
+    email: "gustavohsborba@gmail.com"
+host: "localhost:8080"
+basePath: "/"
+tags:
+  - name: "planets"
+    description: "The sole entity of this API, it represents a planet in Star Wars Universe"
+
+
+
+paths:
+
+  /planets:
+    post:
+      tags:
+        - "planets"
+      summary: "Inserts a planet in the database"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: false
+          schema:
+            $ref: "#/definitions/Planet"
+      responses:
+        "201":
+          description: "In case of success"
+        "400":
+          description: "If the JSON is invalid"
+        "422":
+          description: "If any of the fields are not parsable"
+    get:
+      tags:
+        - "planets"
+      summary: "searches a planet by name or database"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "database"
+          in: "query"
+          type: "string"
+          enum:
+            - "monnos"
+            - "swapi"
+          default: "monnos"
+          description: "name of the planet to be considered for filter"
+          required: false
+        - name: "name"
+          in: "query"
+          type: "string"
+          description: "name of the planet to be considered for filter"
+          required: false
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Planet"
+        "400":
+          description: "if query parameters are not correct"
+
+  /planets/{id}:
+    get:
+      tags:
+        - "planets"
+      summary: "returns planet with given ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of the planet to fetch"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Planet"
+        "404":
+          description: "planet not found"
+    delete:
+      tags:
+        - "planets"
+      summary: "Deletes a planet from the database"
+      description: ""
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Planet id to delete"
+          required: true
+          type: "integer"
+          format: "int64"
+      produces:
+        - "application/json"
+      responses:
+        "204":
+          description: "successful deletion"
+        "404":
+          description: "planet not found"
+        "410":
+          description: "planet alredy deleted"
+
+
+
+definitions:
+  Planet:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        example: 1
+      name:
+        type: "string"
+        description: "The name of this planet."
+        example: "Tatooine"
+      climate:
+        type: "string"
+        description: "The climate of this planet. Comma separated if diverse."
+        example: "Arid"
+      terrain:
+        type: "string"
+        description: "The terrain of this planet. Comma separated if diverse."
+        example: "Desert"
+      filmCount:
+        type: "integer"
+        description: "quantity of films in which the planet appears, obtained from SWAPI"
+
+
