@@ -23,7 +23,6 @@
           "planets"
         ],
         "summary": "Inserts a planet in the database",
-        "description": "",
         "consumes": [
           "application/json"
         ],
@@ -57,6 +56,40 @@
         "tags": [
           "planets"
         ],
+        "summary": "searches a planet by name ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "description": "name of the planet to be considered for filter",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Planet"
+              }
+            }
+          },
+          "400": {
+            "description": "if query parameters are not correct"
+          }
+        }
+      }
+    },
+    "/planets/all": {
+      "get": {
+        "tags": [
+          "planets"
+        ],
         "summary": "searches a planet by name or database",
         "produces": [
           "application/json"
@@ -71,14 +104,7 @@
               "swapi"
             ],
             "default": "monnos",
-            "description": "name of the planet to be considered for filter",
-            "required": false
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "type": "string",
-            "description": "name of the planet to be considered for filter",
+            "description": "database in which the planets should be searched",
             "required": false
           }
         ],

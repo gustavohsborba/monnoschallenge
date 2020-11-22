@@ -21,7 +21,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {InstanceAlreadyExistsException.class})
+    @ExceptionHandler(value = {InstanceAlreadyExistsInDatabaseException.class})
     public ResponseEntity<Object> handleInstanceAlredyExists(){
         return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
     }
@@ -29,6 +29,11 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     @ExceptionHandler(value = {PlanetAlredyDeletedException.class})
     public ResponseEntity<Object> handlePlanetAlredyDeleted(){
         return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(value = {StarWarsApiUnavailableException.class})
+    public ResponseEntity<Object> handleStarWarsApiUnavailable(){
+        return new ResponseEntity<Object>(HttpStatus.BAD_GATEWAY);
     }
 
 }

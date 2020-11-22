@@ -1,6 +1,7 @@
 package com.monnos.api.starwars.dto.converter;
 
 import com.monnos.api.starwars.dto.PlanetDto;
+import com.monnos.api.starwars.dto.PlanetSwapiDto;
 import com.monnos.api.starwars.exception.NotParseableFieldsException;
 import com.monnos.api.starwars.model.Planet;
 import org.springframework.core.convert.converter.Converter;
@@ -30,12 +31,25 @@ public class PlanetConverter implements Converter<PlanetDto, Planet> {
     }
 
     public PlanetDto convert(Planet planet) {
+        if(planet == null)
+            return new PlanetDto();
         PlanetDto p = new PlanetDto();
         p.setId(planet.getId());
         p.setName(planet.getName());
         p.setClimate(planet.getClimate());
         p.setTerrain(planet.getTerrain());
         p.setFilmCount(planet.getFilmCount());
+        return p;
+    }
+
+    public PlanetDto convert(PlanetSwapiDto planet) {
+        if(planet==null)
+            return new PlanetDto();
+        PlanetDto p = new PlanetDto();
+        p.setName(planet.getName());
+        p.setClimate(planet.getClimate());
+        p.setTerrain(planet.getTerrain());
+        p.setFilmCount(planet.getFilms().size());
         return p;
     }
 

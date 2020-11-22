@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface PlanetRepository extends CrudRepository<Planet, Integer> {
 
     Optional<Planet> findById(int id);
-    List<Planet> findByNameContaining();
+    List<Planet> findByNameContaining(String name);
     List<Planet> findAll();
 }
