@@ -26,7 +26,7 @@ public class PlanetService {
     public PlanetDto getPlanet(int id) {
         Optional<Planet> p = planetRepository.findById(id);
         if(p.isPresent())
-            return planetConverter.convert(p.get());
+            return planetConverter.convertToPlanetDto(p.get());
         throw new PlanetNotFoundException();
     }
 
@@ -55,11 +55,11 @@ public class PlanetService {
 
     public List<PlanetDto> findPlanetByName(String name) {
         List<Planet> planets = planetRepository.findByNameContaining(name);
-        return planetConverter.convert(planets);
+        return planetConverter.convertToPlanetDto(planets);
     }
 
     public List<PlanetDto> findAllInDatabase() {
-        return planetConverter.convert(planetRepository.findAll());
+        return planetConverter.convertToPlanetDto(planetRepository.findAll());
     }
 
     public List<PlanetDto> findAllInStarWarsApi() {

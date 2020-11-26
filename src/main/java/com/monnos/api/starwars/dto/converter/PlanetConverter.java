@@ -30,7 +30,7 @@ public class PlanetConverter implements Converter<PlanetDto, Planet> {
         return p;
     }
 
-    public PlanetDto convert(Planet planet) {
+    public PlanetDto convertToPlanetDto(Planet planet) {
         if(planet == null)
             return new PlanetDto();
         PlanetDto p = new PlanetDto();
@@ -42,7 +42,7 @@ public class PlanetConverter implements Converter<PlanetDto, Planet> {
         return p;
     }
 
-    public PlanetDto convert(PlanetSwapiDto planet) {
+    public PlanetDto convertToPlanetDto(PlanetSwapiDto planet) {
         if(planet==null)
             return new PlanetDto();
         PlanetDto p = new PlanetDto();
@@ -53,7 +53,7 @@ public class PlanetConverter implements Converter<PlanetDto, Planet> {
         return p;
     }
 
-    public List<PlanetDto> convert(List<Planet> planetList) {
-        return planetList.stream().map(this::convert).collect(Collectors.toList());
+    public List<PlanetDto> convertToPlanetDto(List<Planet> planetList) {
+        return planetList.stream().map(this::convertToPlanetDto).collect(Collectors.toList());
     }
 }
