@@ -3,9 +3,10 @@
 This sample API <API DESCRIPTION>
 It consists of <NUMBER OF ENDPOINTS> endpoints:
 
-* POST / - description
-* GET / - description
-* DELETE /- description
+* POST /planets/ - add a planet
+* GET /planets/ - searches for a planet by name. Don't forget to add the name to the query of the URL.
+* DELETE /planet/{id} - Deletes a planet
+* GET /planets/all - get all planets from database. If you add the parameter "database=swapi" to the query URL, you'll get all planets in Star Wars API (swapi.dev)
 
 As a ready-to-production API, there is also a webpage with the documentation, using OpenAPI Swagger, 
 available on the url:
