@@ -4,6 +4,7 @@ import com.monnos.api.starwars.dto.PlanetDto;
 import com.monnos.api.starwars.exception.NotParseableFieldsException;
 import com.monnos.api.starwars.service.PlanetService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class PlanetsController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addPlanet(@RequestBody PlanetDto planetDto){
-        planetService.addPlanet(planetDto);
+    public @ResponseBody PlanetDto addPlanet(@RequestBody PlanetDto planetDto) {
+        return  planetService.addPlanet(planetDto);
     }
 
     @GetMapping(value = "/all", produces = "application/json")

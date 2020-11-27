@@ -1,20 +1,17 @@
 package com.monnos.api.starwars;
 
-import com.monnos.api.starwars.ApplicationTest;
 import com.monnos.api.starwars.dto.PlanetDto;
 import com.monnos.api.starwars.exception.PlanetNotFoundException;
 import com.monnos.api.starwars.service.StarWarsApiConsumerService;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StarWarsApiConsumerServiceTest extends ApplicationTest {
+public class StarWarsApiConsumerServiceTest {
 
     String URL_SWAPI_PLANETS = "https://swapi.dev/api/planets/";
     StarWarsApiConsumerService swapiConsumer = new StarWarsApiConsumerService();

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SwapiPageableResponseTest extends ApplicationTest {
+public class SwapiPageableResponseTest {
 
     private static final String URL_SWAPI_PLANETS = "https://swapi.dev/api/planets/";
     private static final RestTemplate restTemplate = new RestTemplate();

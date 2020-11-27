@@ -17,31 +17,32 @@ import java.util.*;
 @Scope("singleton")
 public class PlanetService {
 
-    private static final PlanetConverter  planetConverter = new PlanetConverter();
-    private static final StarWarsApiConsumerService swapiConsumer = new StarWarsApiConsumerService();
+    private final PlanetConverter planetConverter = new PlanetConverter();
+    private final StarWarsApiConsumerService swapiConsumer = new StarWarsApiConsumerService();
 
     @Autowired
-    private static PlanetRepository planetRepository;
+    private PlanetRepository planetRepository;
 
     public PlanetDto getPlanet(int id) {
-        Optional<Planet> p = planetRepository.findById(id);
+        Optional<Planet> p = planetRepository.findByIdAndAndValidIsTrue(id);
         if(p.isPresent())
             return planetConverter.convertToPlanetDto(p.get());
         throw new PlanetNotFoundException();
     }
 
-    public void addPlanet(PlanetDto planetDto) {
+    public PlanetDto addPlanet(PlanetDto planetDto) {
         if(planetRepository.findById(planetDto.getId()).isPresent())
             throw new InstanceAlreadyExistsInDatabaseException();
         Planet p = planetConverter.convert(planetDto);
 
         // sets Film Count fetched from Star Wars API
         PlanetDto swapiPlanet = swapiConsumer.fetchPlanetById(p.getId());
-        if(swapiPlanet.getId()!=null && swapiPlanet.getId().equals(p.getId()))
+        if(swapiPlanet!=null && swapiPlanet.getFilmCount()!=null)
             p.setFilmCount(swapiPlanet.getFilmCount());
 
         p.setValid(true);
         planetRepository.save(p);
+        return planetConverter.convertToPlanetDto(p);
     }
 
     public void deletePlanet(int id) {
@@ -54,12 +55,12 @@ public class PlanetService {
     }
 
     public List<PlanetDto> findPlanetByName(String name) {
-        List<Planet> planets = planetRepository.findByNameContaining(name);
+        List<Planet> planets = planetRepository.findByNameContainingAndValidIsTrue(name);
         return planetConverter.convertToPlanetDto(planets);
     }
 
     public List<PlanetDto> findAllInDatabase() {
-        return planetConverter.convertToPlanetDto(planetRepository.findAll());
+        return planetConverter.convertToPlanetDto(planetRepository.findByValidIsTrue());
     }
 
     public List<PlanetDto> findAllInStarWarsApi() {

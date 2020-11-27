@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 public class PlanetConverter implements Converter<PlanetDto, Planet> {
 
-    Pattern commaSeparatedList = Pattern.compile("/[^,(?! )]+/g");
+    Pattern commaSeparatedList = Pattern.compile("[A-Za-z\\- ]+(,\\s*[A-Za-z\\- ]+)*");
 
     @Override
     public Planet convert(PlanetDto planetDto) {
         if(!commaSeparatedList.matcher(planetDto.getClimate()).matches())
             throw new NotParseableFieldsException();
-        if(!commaSeparatedList.matcher(planetDto.getClimate()).matches())
+        if(!commaSeparatedList.matcher(planetDto.getTerrain()).matches())
             throw new NotParseableFieldsException();
 
         Planet p = new Planet();

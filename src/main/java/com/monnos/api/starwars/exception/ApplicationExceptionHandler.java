@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.management.InstanceAlreadyExistsException;
-
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -28,7 +26,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler(value = {PlanetAlredyDeletedException.class})
     public ResponseEntity<Object> handlePlanetAlredyDeleted(){
-        return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<Object>(HttpStatus.GONE);
     }
 
     @ExceptionHandler(value = {StarWarsApiUnavailableException.class})

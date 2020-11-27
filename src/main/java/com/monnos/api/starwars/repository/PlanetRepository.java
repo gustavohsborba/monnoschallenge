@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface PlanetRepository extends MongoRepository<Planet, Integer> {
     Optional<Planet> findById(int id);
+    Optional<Planet> findByIdAndAndValidIsTrue(int id);
+    List<Planet> findByNameContainingAndValidIsTrue(String name);
     List<Planet> findByNameContaining(String name);
+    List<Planet> findByValidIsTrue();
 }
